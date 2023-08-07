@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.singleProject.nangjanggo.RefriMapper">
+
+
+
+
+    <select id="refriList" parameterType="Refri" resultType="Refri" >
+        SELECT *   FROM      REFRIGERATOR
+        WHERE member_id = #{member_id}
+        order by REFRI_ID desc
+    </select>
+
+    <select id="seqRefri"  parameterType="Refri" resultType="int">
+        select REFRI_ID_SEQ.nextval from dual
+    </select>
+
+    <insert id="addRefri" parameterType="Refri">
+        insert into REFRIGERATOR
+            ( REFRI_ID,R_NAME ,MEMBER_ID ,R_CREATE )
+        values
+            (#{refri_id}, #{r_name}, #{member_id}  , sysdate  )
+    </insert>
+
+    <delete id="deleteRefri" parameterType="int">
+        delete from REFRIGERATOR where REFRI_ID = #{refri_id}
+    </delete>
+
+    <delete id="deleteCascade" parameterType="int">
+        delete from Item where REFRI_ID = #{refri_id}
+    </delete>
+
+
+
+</mapper>
+
+

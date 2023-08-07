@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config
+3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="Item" type="com.singleProject.nangjanggo.domain.item.model.Item"/>
+        <typeAlias alias="Member" type="com.singleProject.nangjanggo.domain.member.model.Member"/>
+        <typeAlias alias="Refri" type="com.singleProject.nangjanggo.domain.refri.model.Refri"/>
+
+    </typeAliases>
+
+
+</configuration>

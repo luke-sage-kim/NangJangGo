@@ -1,0 +1,47 @@
+server:         # 같은 server에서 port번호로 구별 -> port번호 : 물리적인 server 안에서 논리적 server를 구별하는 기준
+  port: 4111
+# Oracle Connect
+spring:
+  # File Size   파일업로드 할때 파일 크기
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  # JavaMailSender
+  mail:
+    jndi-name: java:comp/env/mail/Session
+    host: smtp.gmail.com
+    port: 587
+    username: s20230404@gmail.com
+    password: ezpmhzaslnypxzcy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+    #JDBC 연결(오라클)
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    username: nangjang
+    password: tiger
+    driver-class-name:  oracle.jdbc.driver.OracleDriver
+
+
+
+
+  # view Resolver     (기본설정)default는 /templates/밑으로 이동
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+# Mybatis
+mybatis:
+  config-location: classpath:configuration.xml    # classpath는 /resources/밑
+  mapper-locations: classpath:mappers/*.xml       # mapper의 위치 지정 => mappers/밑에 모든 파일
+
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.singleProject.nangjanggo.ItemMapper">
+
+
+    <select id="itemTotal" resultType="int">
+        select Count(*) FROM ITEM
+    </select>
+
+    <select id="itemList" parameterType="Item" resultType="Item" >
+        <![CDATA[
+        SELECT *
+        FROM
+        (	SELECT rownum rn , a.*
+        FROM
+        (  SELECT *   FROM      Item
+        WHERE REFRI_ID = #{refri_id}
+        order by I_EXPIRATION ) a
+        )
+        WHERE  rn >= #{start}
+        and    rn <= #{end}
+        ]]>
+
+    </select>
+
+    <select id="seqItem"  parameterType="Item" resultType="int">
+        select ITEM_ID_SEQ.nextval from dual
+    </select>
+
+
+    <insert id="addItem" parameterType="Item">
+        insert into ITEM
+        ( ITEM_ID,REFRI_ID ,I_NAME ,I_CATEGORY ,I_LOC,I_EXPIRATION)
+        values
+            (#{item_id}, #{refri_id} , #{i_name}, #{i_category}, #{i_loc} , #{i_expiration}  )
+    </insert>
+
+    <delete id="deleteItem" parameterType="int">
+        delete from ITEM where ITEM_ID = #{item_id}
+    </delete>
+
+
+    <select id="searchCnt" parameterType="Item" resultType="int">
+        select Count(*) FROM ITEM
+        where
+                I_NAME  like '%' || #{keyword} || '%'
+    </select>
+
+    <!-- 숙소검색결과 -->
+    <select id="itemSearchList" parameterType="Item"  resultType="Item" >
+        SELECT *
+        FROM
+            (
+                SELECT rownum rn , a.*
+                FROM
+                    (select * from Item
+                     WHERE i_name  like '%' ||  #{keyword} || '%'
+                     order by I_EXPIRATION) a
+            )
+        WHERE  rn BETWEEN #{start} and #{end}
+
+    </select>
+
+
+
+</mapper>
+
+
